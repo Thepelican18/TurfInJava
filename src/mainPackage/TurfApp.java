@@ -29,7 +29,7 @@ public class TurfApp {
 			setVisible(true);
 			setResizable(false);
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
-			setBounds(resWidth() * 400 /1920,resHeight() * 300 / 1080,resWidth() * 1100 /1920, resHeight() * 500/1080);
+			setBounds(resWidth() * 400 /1920,resHeight() * 300 / 1080,resWidth() * 1146 /1920, resHeight() * 500/1080);
 			Hippodrome hippo = Hippodrome.getInstance();
 			add(hippo);//Añade el JPanel
 			   
