@@ -24,6 +24,7 @@ public class Horse extends Thread {
 	private Dimension HDimension;// horse dimension
 	private ArrayList<Image> movHorse = new ArrayList<Image>();// Horse animation
 	private static ArrayList<String> ocupatedNames = new ArrayList<String>();// to not repeat names from the list
+	private boolean wtf = false;
 	private Thread[] threads = new Thread[4];
 	private int count = 0;
 	private static int totalHorses = 0;
@@ -48,7 +49,7 @@ public class Horse extends Thread {
 		threads[totalHorses] = new Thread(this);
 		HDimension = new Dimension(x, y);
 		totalHorses++;
-		yCol += 100;
+		yCol += Frame.resHeight()*100/1080;
 
 	}
 
@@ -57,9 +58,12 @@ public class Horse extends Thread {
 
 		try {
 
-			while (x < 1000) {
-
+			while (x < Frame.resWidth()*1000/1920) {
+				
 				Thread.sleep(50);
+				if(wtf) {
+					x += new Random().nextInt(9) + 1;
+				}
 				x += new Random().nextInt(9) + 1;
 				Hmovement();// Update horse position
 				setImage();// Change the image of horse
@@ -90,20 +94,26 @@ public class Horse extends Thread {
 		movHorse.add(Frame.getScaledImage(new ImageIcon("src/IMG/" + team + "/" + "tenthMovHorse.png").getImage(), 120,	100));
 		movHorse.add(Frame.getScaledImage(new ImageIcon("src/IMG/" + team + "/" + "eleventhMovHorse.png").getImage(), 120, 100));
 		movHorse.add(Frame.getScaledImage(new ImageIcon("src/IMG/" + team + "/" + "twelfthMovHorse.png").getImage(), 120, 100));
+		movHorse.add(Frame.getScaledImage(new ImageIcon("src/IMG/ponytaRed.png").getImage(), 120, 100));
 
 		setImage(); //To set the first idle image
 
 	}
 
 	public void setImage() {
-
-		if (count >= 12) {
-
-			count = 1;
+		if (!wtf) {
+			
+			if (count >= 12) {
+	
+				count = 1;
+			}
+			
+			HImage = movHorse.get(count);
+			count++;
+		}else {
+			
+			HImage = movHorse.get(13);
 		}
-		
-		HImage = movHorse.get(count);
-		count++;
 		
 	}
 
@@ -122,16 +132,21 @@ public class Horse extends Thread {
 		while (bufferName.readLine() != null) {
 
 			nameList.add(bufferName.readLine());
-
+			
 		}
 		bufferName.close();
-		HName = nameList.get(new Random().nextInt(10));
+		HName = nameList.get(new Random().nextInt(18));
+		
 		while (ocupatedNames.indexOf(HName) != -1) {
-			System.out.println("nombre encontrado");
-			HName = nameList.get(new Random().nextInt(10));
+			
+			HName = nameList.get(new Random().nextInt(18));
 
 		}
+		System.out.println(HName);
 		ocupatedNames.add(HName);
+		if(HName.equalsIgnoreCase("Ponyta")) {
+			wtf = true;
+		}
 
 	}
 

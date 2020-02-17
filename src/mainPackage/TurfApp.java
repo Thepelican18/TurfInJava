@@ -49,7 +49,7 @@ public class TurfApp {
 		}
 		public static Image getScaledImage(Image image,int width,int height) {
 			
-			return image.getScaledInstance(width, height, 0);
+			return image.getScaledInstance(resWidth()*width/1920,resHeight()* height/1080, 0);
 			
 		}
 	}
